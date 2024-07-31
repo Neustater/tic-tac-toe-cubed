@@ -1,15 +1,11 @@
 import { useState } from "react";
+// Partial Support for additional board dimmentions (css requires manual adjustment)
+let boardDimentions = 3;
 
-function Square({ value, onSquareClick }) {
-  return (
-    <button className="square" onClick={onSquareClick}>
-      {value}
-    </button>
-  );
-}
-
+// Manages the combined instance of 6 tic-tac-toe boards.
 export default function CubeBoard(){
   const [xIsNext, setXIsNext] = useState(true);
+  
   return(
     <div className="container">
       <div className="cube">
@@ -24,11 +20,16 @@ export default function CubeBoard(){
   );
 }
 
+// Board component manages a single tic-tac-toe board instance.
 function Board({xIsNext, setXIsNext}) {
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [squares, setSquares] = useState(Array(boardDimentions**2).fill(null));
+  let hasWon = checkSideWinner(squares);
+  let winnerElement = hasWon === "X" ? (<div className="result x-result"><p>X</p></div>) : 
+    hasWon === "O" ? (<div className="result o-result"><p>O</p></div>) : 
+    hasWon === "draw" ? (<div className="result draw-result"><p>✽</p></div>) : null;
 
   function handleClick(i) {
-    if (squares[i] || checkWinner(squares)) {
+    if (squares[i] || hasWon) {
       return;
     }
     const nextSquares = squares.slice();
@@ -36,44 +37,84 @@ function Board({xIsNext, setXIsNext}) {
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
   }
-  let hasWon = checkWinner(squares);
-  let hasWinner = hasWon === "X" ? (<div className="result x-result"><p>X</p></div>) : hasWon === "O" ? (<div className="result o-result"><p>O</p></div>) : null;
 
+  function renderBoard() {
+    const boardElement = [];
+    for (let i = 0; i < boardDimentions * boardDimentions; i++) {
+      boardElement.push(
+        <Square key={i} value={squares[i]} onSquareClick={() => handleClick(i)} />
+      );
+    }
+    return boardElement;
+  }
+
+  let gridTemplateRowsAndColumnds = "1fr ".repeat(boardDimentions);
+  
   return (
     <>
-      <div className="board">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+      <div className="board" style={{gridTemplateColumns: gridTemplateRowsAndColumnds, gridTemplateRows: gridTemplateRowsAndColumnds}}>
+        {renderBoard()}
       </div>
-      {hasWinner}
+      {winnerElement}
     </>
   );
 }
 
-function checkWinner(squares){
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+// Square component represents a single square in the tic-tac-toe board.
+function Square({ value, onSquareClick }) {
+  return (
+    <button className="square" style={{fontSize: (32/boardDimentions) + "dvh"}} onClick={onSquareClick}>
+      {value}
+    </button>
+  );
+}
+
+function checkSideWinner(squares){
+  if(squares.every(square => square)){
+    return "draw";
+  }
+  // Check for winner in row
+  for (let i=0; i<squares.length; i+=boardDimentions){
+    if (!squares[i]){continue;}
+    for (let j=i+1; j<i+boardDimentions; j+=1){
+      if (!squares[j] || squares[j] !== squares[j-1]){
+        break;
+      }else if (j === i+boardDimentions-1){
+        console.log("Winner in row");
+        return squares[j];
+      }
+    }
+  }
+  
+  // Check for winner in column
+  for (let i=0; i<boardDimentions; i+=1){
+    if (!squares[i]){continue;}
+    for (let j=i+boardDimentions; j<= i + (boardDimentions * (boardDimentions-1)) ; j+=boardDimentions){
+      if (!squares[j] || squares[j] !== squares[j-boardDimentions]){
+        break;
+      }else if (j === i + (boardDimentions * (boardDimentions-1))){
+        console.log("Winner in column");
+        return squares[j];
+      }
+    }
+  }
+  
+  // Check for winner in diagonal
+  for(let i=boardDimentions+1; i<squares.length; i+=boardDimentions+1){
+    if (!squares[i] || squares[i] !== squares[i-boardDimentions-1]){
+      break;
+    }else if (i === squares.length-1){
+      console.log("Winner in diagonal");
+      return squares[i];
+    }
+  }
+  // Check for winner in counter-diagonal
+  for(let i=boardDimentions*2-2; i<squares.length; i+=boardDimentions-1){
+    if (!squares[i] || squares[i] !== squares[i-boardDimentions+1]){
+      break;
+    }else if (i === boardDimentions**2 - boardDimentions){
+      console.log("Winner in counter-diagonal");
+      return squares[i];
     }
   }
   return null;

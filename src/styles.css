@@ -35,19 +35,20 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+
+  overflow:hidden
 }
 
 .face > * {
   grid-column: 1 / 1;
   grid-row: 1 / 1;
+  overflow:hidden
 }
 
 .face .board {
   z-index: 1;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   width: 100%;
   height: 100%;
 }
@@ -77,9 +78,14 @@ body {
   box-shadow: inset 0 0 0 2dvh #6ebefe;
 }
 
+.draw-result{
+  color: #9d9d9d;
+  background-color: #7d7d7d25;
+  box-shadow: inset 0 0 0 2dvh #9d9d9d;
+}
+
 .square {
   background: #ffffff;
-  font-size: 10dvh;
   border: #3b3b3b solid 0.01dvh;
   font-weight: bold;
   text-align: center;
@@ -114,7 +120,7 @@ body {
     transform: rotateX(0deg) rotateY(0deg);
   }
   to {
-    transform: rotateX(360deg) rotateY(360deg);
+    transform: rotateX(1080deg) rotateY(720deg);
   }
 }
 .cube {
@@ -122,5 +128,5 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  animation: spin 10s infinite linear;
+  animation: spin 0s infinite linear;
 }
