@@ -1,3 +1,10 @@
+html, body {
+
+  height: 100%;
+  width: 100%;
+  inset: 0;
+}
+
 /* Remove Buttom Formatting */
 button, input[type="submit"], input[type="reset"] {
 	background: none;
@@ -9,15 +16,41 @@ button, input[type="submit"], input[type="reset"] {
 	outline: inherit;
 }
 
+h1 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 8svh;
+  color: #3b3b3b;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 5svh;
+  color: #4b4b4bd5;
+  font-family: Arial, sans-serif;
+}
+
 body {
+  overflow: hidden;
   background-color:#faedcb;
 }
 
+.parent {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 6fr 1fr 0.75fr;
+  height: 100svh;
+}
+
 .container {
-  width: 40dvh;
-  height: 40dvh;
-  perspective: 200dvh;
-  margin: 25dvh auto 0;
+  width: 40svh;
+  height: 40svh;
+  perspective: 200svh;
+  margin: 18svh auto 0;
 }
 
 .cube {
@@ -63,30 +96,30 @@ body {
   text-align:center; 
   vertical-align: middle;
   display: table-cell;  
-  font-size: 32dvh;
+  font-size: 32svh;
 }
 
 .x-result{
   color: #ff7982;
   background-color: #ff798225;
-  box-shadow: inset 0 0 0 2dvh #ff7982;
+  box-shadow: inset 0 0 0 2svh #ff7982;
 }
 
 .o-result{
   color: #6ebefe;
   background-color: #6ebefe25;
-  box-shadow: inset 0 0 0 2dvh #6ebefe;
+  box-shadow: inset 0 0 0 2svh #6ebefe;
 }
 
 .draw-result{
   color: #9d9d9d;
   background-color: #7d7d7d25;
-  box-shadow: inset 0 0 0 2dvh #9d9d9d;
+  box-shadow: inset 0 0 0 2svh #9d9d9d;
 }
 
 .square {
   background: #ffffff;
-  border: #3b3b3b solid 0.01dvh;
+  border: #3b3b3b solid 0.01svh;
   font-weight: bold;
   text-align: center;
   color: #3b3b3b;
@@ -95,24 +128,24 @@ body {
 /* Rotation Animation */
 
 .top {
-  transform: rotateX(90deg) translateZ(20dvh);
+  transform: rotateX(90deg) translateZ(20svh);
 }
 .bottom {
-  transform: rotateX(-90deg) translateZ(20dvh);
+  transform: rotateX(-90deg) translateZ(20svh);
 }
 
 .right {
-  transform: rotateY(90deg) translateZ(20dvh);
+  transform: rotateY(90deg) translateZ(20svh);
 }
 .left {
-  transform: rotateY(-90deg) translateZ(20dvh);
+  transform: rotateY(-90deg) translateZ(20svh);
 }
 
 .front {
-  transform: rotateX(0deg) translateZ(20dvh);
+  transform: rotateX(0deg) translateZ(20svh);
 }
 .back {
-  transform: rotateX(-180deg) translateZ(20dvh);
+  transform: rotateX(-180deg) translateZ(20svh);
 }
 
 @keyframes spin {
@@ -128,5 +161,5 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  animation: spin 0s infinite linear;
+  animation: spin 15s infinite linear;
 }
