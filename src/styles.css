@@ -139,6 +139,11 @@ body > * {
   font-weight: bold;
   text-align: center;
   color: #3b3b3b;
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Rotation Animation */
