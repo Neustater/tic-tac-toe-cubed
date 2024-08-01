@@ -5,7 +5,7 @@ let boardDimentions = 3;
 // Square component represents a single square in the tic-tac-toe board.
 function Square({ value, onSquareClick, squareInd, boardInd}) {
   return (
-    <button className="square" style={{fontSize: (55/boardDimentions) + "dvh"}} onClick={() => onSquareClick(boardInd, squareInd)}>
+    <button className="square" style={{fontSize: (40/boardDimentions) + "dvh"}} onClick={() => onSquareClick(boardInd, squareInd)}>
       {value}
     </button>
   );
