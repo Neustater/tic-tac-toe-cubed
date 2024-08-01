@@ -3,9 +3,9 @@ import { useState } from "react";
 let boardDimentions = 3;
 
 // Square component represents a single square in the tic-tac-toe board.
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, squareInd, boardInd}) {
   return (
-    <button className="square" style={{fontSize: (45/boardDimentions) + "dvh"}} onClick={onSquareClick}>
+    <button className="square" style={{fontSize: (55/boardDimentions) + "dvh"}} onClick={() => onSquareClick(boardInd, squareInd)}>
       {value}
     </button>
   );
@@ -21,7 +21,7 @@ function Board({boardInd, board, onSquareClick, sideResult}) {
     const boardElement = [];
     for (let squareInd = 0; squareInd < boardDimentions * boardDimentions; squareInd++) {
       boardElement.push(
-        <Square key={squareInd} value={board[squareInd]} onSquareClick={() => onSquareClick(boardInd, squareInd)} />
+        <Square key={squareInd} value={board[squareInd]} boardInd={boardInd} squareInd={squareInd} onSquareClick={onSquareClick} />
       );
     }
     return boardElement;
