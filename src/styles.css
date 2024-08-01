@@ -48,6 +48,13 @@ body {
   background-color:#faedcb;
 }
 
+body > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+}
+
 .parent {
   display: grid;
   grid-template-columns: 1fr;
@@ -135,7 +142,6 @@ body {
 }
 
 /* Rotation Animation */
-
 .top {
   transform: rotateX(90deg) translateZ(20svh);
 }
