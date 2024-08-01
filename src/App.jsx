@@ -21,7 +21,7 @@ function Board({boardInd, board, onSquareClick, sideResult}) {
     const boardElement = [];
     for (let squareInd = 0; squareInd < boardDimentions * boardDimentions; squareInd++) {
       boardElement.push(
-        <Square key={squareInd} boardInd={boardInd} value={board[squareInd]} onSquareClick={() => onSquareClick(boardInd, squareInd)} />
+        <Square key={squareInd} value={board[squareInd]} onSquareClick={() => onSquareClick(boardInd, squareInd)} />
       );
     }
     return boardElement;
