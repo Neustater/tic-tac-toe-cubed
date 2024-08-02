@@ -113,6 +113,8 @@ body > * {
   vertical-align: middle;
   display: table-cell;  
   font-size: 32svh;
+  line-height: 32svh;
+  overflow: hidden;
 }
 
 .x-result{
@@ -183,5 +185,5 @@ body > * {
   width: 100%;
   height: 100%;
   position: relative;
-  animation: spin 15s infinite linear;
+  animation: spin 0s infinite linear;
 }

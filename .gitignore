@@ -2,3 +2,4 @@ dist
 .vscode
 node_modules
 .DS_Store
+cube-tac-toe.code-workspace
